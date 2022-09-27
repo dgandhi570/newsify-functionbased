@@ -10,7 +10,7 @@ export class News extends Component {
   
   static defaultProps = {
       country: "in",
-      category: "general"
+      category: "all"
   }
 
 static propTypes = {
@@ -37,7 +37,8 @@ capitalizeFirstLetter(string) {
 
 async updateNews(){
     this.props.setProgress(20)
-    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=59a4717a84774b4abe4d455531c7dd41&page=${this.state.page}&pageSize=6`
+    // let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=59a4717a84774b4abe4d455531c7dd41&page=${this.state.page}&pageSize=6`
+    let url =  `https://inshorts.deta.dev/news?category=${this.props.category}`
     this.setState({loading: 1})
     this.props.setProgress(40)
     let data = await fetch(url)
@@ -45,7 +46,7 @@ async updateNews(){
     let pdata =  await data.json()
     console.log(pdata)
     this.props.setProgress(80)
-    this.setState({articles: pdata.articles, totalResults: pdata.totalResults, loading: 0})
+    this.setState({articles: pdata.data, totalResults: pdata.data.length, loading: 0})
     this.props.setProgress(100)
 
 }
@@ -57,11 +58,12 @@ async componentDidMount() {
 
 fetchMoreData = async () => {
   this.setState({page: this.state.page + 1})
-  let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=59a4717a84774b4abe4d455531c7dd41&page=${this.state.page}&pageSize=6`
-    let data = await fetch(url)
+  // let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=59a4717a84774b4abe4d455531c7dd41&page=${this.state.page}&pageSize=6`
+   let url =  `https://inshorts.deta.dev/news?category=${this.props.category}`
+  let data = await fetch(url)
     let pdata =  await data.json()
     console.log(pdata)
-    this.setState({articles: this.state.articles.concat(pdata.articles), totalResults: pdata.totalResults})
+    this.setState({articles: this.state.articles.concat(pdata.data), totalResults: pdata.data.length})
   };
 
 
@@ -90,7 +92,7 @@ fetchMoreData = async () => {
         <div className='row'>
         {this.state.articles.map( (x) => 
                                     { return  <div className='col-md-4 my-3' key={x.url}>
-                                      <NewsItem title={x.title?x.title.slice(0,18):""} description={x.description?x.description.slice(0,80):""} source={x.source.name} imageUrl={x.urlToImage} newsUrl={x.url}/>
+                                      <NewsItem title={x.title?x.title.slice(0,18):""} content={x.content?x.content.slice(0,80):""} author={x.author} imageUrl={x.imageUrl} readMoreUrl={x.readMoreUrl}/>
                                       </div> }  
                                       )}
         </div>

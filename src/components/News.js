@@ -3,7 +3,7 @@ import NewsItem from './NewsItem'
 import Loading from './Loading'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroll-component';
-import LoadingBar from 'react-top-loading-bar'
+
 
 
 export class News extends Component {

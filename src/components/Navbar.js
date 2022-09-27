@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
+
 import React, { Component } from 'react'
-import {BrowserRouter, Link, NavLink} from "react-router-dom"
+import {Link, NavLink} from "react-router-dom"
 
 export class Navbar extends Component {
   static propTypes = {}

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import heart from './heart.gif'
 
-export default class loading extends Component {
-  render() {  
+const Loading= () => {
+  
     return (
       <div style={{textAlign: "center"}}>
         <img src={heart} alt="loading"></img>
       </div>
     )
-  }
+
 }
+
+export default Loading
